@@ -3,7 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <title>Poručivanje radova</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f4f7f8;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background-color: #3498db;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+  </style>
 </head>
 <body>
   <h1>Pisanje radova</h1>
@@ -12,8 +82,11 @@
   <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
   <!-- Forma -->
-  <form action="https://script.google.com/macros/s/AKfycbxExetguxALWQl8b1yBtPsrz02BgauKUXHOncTu7qZfhh0JsVtF6mVZWC2Ki-fHvVBV/exec"
-        method="POST" target="hidden_iframe" id="radoviForm">
+  <form 
+    action="https://script.google.com/macros/s/AKfycbxExetguxALWQl8b1yBtPsrz02BgauKUXHOncTu7qZfhh0JsVtF6mVZWC2Ki-fHvVBV/exec"
+    method="POST" 
+    target="hidden_iframe" 
+    id="radoviForm">
     
     <!-- Token -->
     <input type="hidden" name="token" value="RAD_FORM_V1">
@@ -71,21 +144,35 @@
       <option value="Viber">Viber</option>
     </select>
 
-    <button type="submit">Pošalji</button>
+    <button type="submit">Pošalji porudžbinu</button>
   </form>
 
   <div id="status">Popunite formu i kliknite "Pošalji"</div>
 
   <script>
-    // Prikaz poruke kada se forma pošalje
     const form = document.getElementById("radoviForm");
     const statusDiv = document.getElementById("status");
-    const iframe = document.getElementById("hidden_iframe");
 
+    // Prikaz poruke kada se forma pošalje
+    form.addEventListener("submit", function() {
+      statusDiv.innerHTML = "Šaljem podatke...";
+      statusDiv.style.color = "#3498db";
+    });
+
+    // Praćenje kada iframe dobije odgovor
+    const iframe = document.getElementById("hidden_iframe");
+    
     iframe.onload = function() {
-      statusDiv.innerHTML = "Uspešno poslato!";
+      statusDiv.innerHTML = "✅ Porudžbina je uspešno poslata! Kontaktiraćemo vas u najkraćem roku.";
+      statusDiv.style.color = "#27ae60";
       form.reset();
-    }
+      
+      // Vrati poruku na početno stanje nakon 5 sekundi
+      setTimeout(function() {
+        statusDiv.innerHTML = "Popunite formu i kliknite 'Pošalji'";
+        statusDiv.style.color = "#2c3e50";
+      }, 5000);
+    };
   </script>
 </body>
 </html>
