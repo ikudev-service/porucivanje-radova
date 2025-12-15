@@ -2,12 +2,23 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8">
-  <title>Forma za pisanje radova</title>
+  <title>Poručivanje radova</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Pisanje radova</h1>
-  <form id="radoviForm">
+
+  <!-- Skriveni iframe za slanje u pozadini -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+  <!-- Forma -->
+  <form action="https://script.google.com/macros/s/AKfycbxExetguxALWQl8b1yBtPsrz02BgauKUXHOncTu7qZfhh0JsVtF6mVZWC2Ki-fHvVBV/exec"
+        method="POST" target="hidden_iframe" id="radoviForm">
+    
+    <!-- Token -->
+    <input type="hidden" name="token" value="RAD_FORM_V1">
+
+    <!-- Polja -->
     <label>Vrsta rada:</label>
     <select name="vrstaRada" required>
       <option value="">Izaberi...</option>
@@ -16,55 +27,65 @@
       <option value="Diplomski rad">Diplomski rad</option>
       <option value="Master rad">Master rad</option>
       <option value="Prezentacija">Prezentacija</option>
-    </select><br><br>
+    </select>
 
     <label>Ime i prezime:</label>
-    <input type="text" name="imePrezime" required placeholder="Marko Marković"><br><br>
+    <input type="text" name="imePrezime" placeholder="Marko Marković" required>
 
     <label>Škola/Fakultet:</label>
-    <input type="text" name="skola" required placeholder="Ekonomski fakultet"><br><br>
+    <input type="text" name="skola" placeholder="Ekonomski fakultet" required>
 
     <label>Mesto:</label>
-    <input type="text" name="mesto" required placeholder="Kosovska Mitrovica"><br><br>
+    <input type="text" name="mesto" placeholder="Kosovska Mitrovica" required>
 
     <label>Predmet:</label>
-    <input type="text" name="predmet" required><br><br>
+    <input type="text" name="predmet" required>
 
     <label>Tema:</label>
-    <input type="text" name="tema" required><br><br>
+    <input type="text" name="tema" required>
 
     <label>Smer:</label>
-    <input type="text" name="smer"><br><br>
+    <input type="text" name="smer">
 
     <label>Broj indeksa/odeljenje:</label>
-    <input type="text" name="indeks"><br><br>
+    <input type="text" name="indeks">
 
     <label>Profesor:</label>
-    <input type="text" name="profesor"><br><br>
+    <input type="text" name="profesor">
 
     <label>Broj stranica:</label>
-    <input type="text" name="brojStranica"><br><br>
+    <input type="text" name="brojStranica">
 
     <label>Rok:</label>
-    <input type="date" name="rok"><br><br>
+    <input type="date" name="rok">
 
     <label>E-mail:</label>
-    <input type="email" name="email"><br><br>
+    <input type="email" name="email">
 
     <label>Telefon:</label>
-    <input type="text" name="telefon"><br><br>
+    <input type="text" name="telefon">
 
     <label>Društvena mreža:</label>
     <select name="mreza">
       <option value="WhatsApp">WhatsApp</option>
       <option value="Viber">Viber</option>
-    </select><br><br>
+    </select>
 
     <button type="submit">Pošalji</button>
   </form>
 
-  <div id="status"></div>
+  <div id="status">Popunite formu i kliknite "Pošalji"</div>
 
-  <script src="script.js"></script>
+  <script>
+    // Prikaz poruke kada se forma pošalje
+    const form = document.getElementById("radoviForm");
+    const statusDiv = document.getElementById("status");
+    const iframe = document.getElementById("hidden_iframe");
+
+    iframe.onload = function() {
+      statusDiv.innerHTML = "Uspešno poslato!";
+      form.reset();
+    }
+  </script>
 </body>
 </html>
