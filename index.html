@@ -1,178 +1,261 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Poručivanje radova</title>
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #f4f7f8;
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 30px;
-    }
-
-    form {
-      max-width: 600px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
-    }
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="date"],
-    select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: #3498db;
-      outline: none;
-    }
-
-    button[type="submit"] {
-      width: 100%;
-      padding: 12px;
-      background-color: #3498db;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button[type="submit"]:hover {
-      background-color: #2980b9;
-    }
-
-    #status {
-      text-align: center;
-      margin-top: 20px;
-      font-weight: bold;
-      color: #2c3e50;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form with Bootstrap</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+  <!-- <script src="./script.js"></script> -->
 </head>
-<body>
-  <h1>Pisanje radova</h1>
 
-  <!-- Skriveni iframe za slanje u pozadini -->
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+<body class="bg-light">
+  <div class="container">
+    <div class="form-container">
+      <h4 class="text-center mb-4">PORUCIVANJE RADOVA</h4>
 
-  <!-- Forma -->
-  <form 
-    action="https://script.google.com/macros/s/AKfycbxExetguxALWQl8b1yBtPsrz02BgauKUXHOncTu7qZfhh0JsVtF6mVZWC2Ki-fHvVBV/exec"
-    method="POST" 
-    target="hidden_iframe" 
-    id="radoviForm">
-    
-    <!-- Token -->
-    <input type="hidden" name="token" value="RAD_FORM_V1">
+      <!-- FORMA -->
+      <form id="submit-to-google-sheet" name="submit-to-google-sheet">
+        <!-- VRSTA RADA -->
+        <div class="form-group">
+          <label for="vrsta_rada">Vrsta rada:</label><br>
+          <!-- SEMINARSKI RAD -->
+          <input type="radio" class="xform-control" value="Seminarski rad" name="vrsta_rada" id="seminarski_rad" />
+          <label for="seminarski_rad">Seminarski rad</label><br>
+          <!-- MATURSKI RAD -->
+          <input type="radio" class="xform-control" value="Maturski rad" name="vrsta_rada" id="maturski_rad" />
+          <label for="maturski_rad">Maturski rad</label><br>
+          <!-- PREZENTACIJA -->
+          <input type="radio" class="xform-control" value="Prezentacija" name="vrsta_rada" id="prezentacija" />
+          <label for="prezentacija">Prezentacija</label><br>
+          <!-- DIPLOMSKI RAD -->
+          <input type="radio" class="xform-control" value="Diplomski rad" name="vrsta_rada" id="diplomski_rad" />
+          <label for="diplomski_rad">Diplomski rad</label><br>
+          <!-- MASTER RAD -->
+          <input type="radio" class="xform-control" value="Master rad" name="vrsta_rada" id="master_rad" />
+          <label for="master_rad">Master rad</label>
+          <!-- ============================================ -->
+          <!-- IME -->
+          <div class="form-group">
+            <label for="ime">Ime:</label>
+            <input class="form-control" type="text" name="ime" id="ime" placeholder="x" required value="Dusan" />
+            <!-- PREZIME -->
+            <div class="form-group">
+              <label for="prezime">Prezime:</label>
+              <input class="form-control" type="text" name="prezime" id="prezime" placeholder="x" required
+                value="Kasalovic" />
+              <!-- POL -->
+              <div class="form-group">
+                <label for="pol">Pol:</label>
+                <!-- MUSKI -->
+                <input type="radio" class="xform-control" value="Muski" name="pol" id="muski" required />
+                <label for="muski">Muski</label>
+                <!-- ZENSKI -->
+                <input type="radio" class="xform-control" value="Zenski" name="pol" id="zenski" required />
+                <label for="zenski">Zenski</label><br>
 
-    <!-- Polja -->
-    <label>Vrsta rada:</label>
-    <select name="vrstaRada" required>
-      <option value="">Izaberi...</option>
-      <option value="Seminarski rad">Seminarski rad</option>
-      <option value="Maturski rad">Maturski rad</option>
-      <option value="Diplomski rad">Diplomski rad</option>
-      <option value="Master rad">Master rad</option>
-      <option value="Prezentacija">Prezentacija</option>
-    </select>
+                <!-- NAZIV SKOLE/FAKULTETA -->
+                <div class="form-group">
+                  <label for="naziv_skole_fakulteta">Naziv skole/fakulteta:</label>
+                  <input class="form-control" type="text" name="naziv_skole_fakulteta" id="naziv_skole_fakulteta"
+                    placeholder="x" required value="FTN KM" />
+                  <!-- MESTO -->
+                  <div class="form-group">
+                    <label for="mesto">Mesto:</label>
+                    <input class="form-control" type="text" name="mesto" id="mesto" placeholder="x" required
+                      value="Kosovska Mitrovica" />
+                    <!-- PREDMET -->
+                    <div class="form-group">
+                      <label for="predmet">Predmet:</label>
+                      <input class="form-control" type="text" name="predmet" id="predmet" placeholder="x" required
+                        value="Matematika 1" />
+                      <!-- TEMA -->
+                      <div class="form-group">
+                        <label for="tema">Tema:</label>
+                        <input class="form-control" type="text" name="tema" id="tema" placeholder="x" required
+                          value="Polinomi" />
+                        <!-- SMER -->
+                        <div class="form-group">
+                          <label for="smer">Smer:</label>
+                          <input class="form-control" type="text" name="smer" id="smer" placeholder="x" required
+                            value="ERI" />
+                          <!-- BROJ INDEKSA/ODELJENJE -->
+                          <div class="form-group">
+                            <label for="broj_indeksa_odeljenja">Broj indeksa/odeljenja:</label>
+                            <input class="form-control" type="text" name="broj_indeksa_odeljenja"
+                              id="broj_indeksa_odeljenja" placeholder="x" required value="112/21" />
+                            <!-- IME PROFESORA -->
+                            <div class="form-group">
+                              <label for="ime_profesora">Ime profesora:</label>
+                              <input class="form-control" type="text" name="ime_profesora" id="ime_profesora"
+                                placeholder="x" required value="Diana" />
+                              <!-- PREZIME PROFESORA -->
+                              <div class="form-group">
+                                <label for="prezime_profesora">Prezime profesora:</label>
+                                <input class="form-control" type="text" name="prezime_profesora" id="prezime_profesora"
+                                  placeholder="x" required value="Dolicanin" />
+                                <!-- BROJ STRANICA -->
+                                <div class="form-group">
+                                  <label for="broj_stranica">Broj stranica:</label><br />
+                                  <input type="radio" name="broj_stranica" id="1-10" value="1-10">
+                                  <label for="broj_stranica">1-10</label>
+                                  <input type="radio" name="broj_stranica" id="10-15" value="10-15">
+                                  <label for="broj_stranica">1-15</label>
+                                  <input type="radio" name="broj_stranica" id="15-20" value="15-20">
+                                  <label for="broj_stranica">15-20</label>
+                                  <input type="radio" name="broj_stranica" id="20-30" value="20-30">
+                                  <label for="broj_stranica">20-30</label>
+                                  <input type="radio" name="broj_stranica" id="30-40" value="30-40">
+                                  <label for="broj_stranica">30-40</label>
+                                </div>
+                                <!-- VREMENSKI ROK -->
+                                <div class="form-group">
+                                  <label for="vremenski_rok">Vremenski rok:</label>
+                                  <input class="form-control" type="date" name="vremenski_rok" id="vremenski_rok"
+                                    required />
+                                  <!-- EMAIL -->
+                                  <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input class="form-control" type="email" name="email" id="email" placeholder="x"
+                                      required value="diana.dolicanin@pr.ac.rs" />
+                                    <!-- KONTAKT TELEFON -->
+                                    <div class="form-group">
+                                      <label for="slip">Kontakt telefon:</label>
+                                      <input class="form-control" type="text" name="kontakt_telefon"
+                                        id="kontakt_telefon" placeholder="x" required value="+381 64 821 3812" />
+                                      <!-- NAPOMENA -->
+                                      <div class="form-group">
+                                        <label for="napomena">Napomena:</label>
+                                        <textarea class="form-control" name="napomena" id="napomena"
+                                          placeholder="Napomena">Nema napomene.</textarea>
 
-    <label>Ime i prezime:</label>
-    <input type="text" name="imePrezime" placeholder="Marko Marković" required>
+                                        <!-- DRUSTVENA MREZA -->
+                                        <div class="form-group">
+                                          <label for="drustvena_mreza">Drustvena mreza:</label><br />
+                                          <input type="radio" name="drustvena_mreza" id="whatsapp" value="WhatsApp">
+                                          <label for="drustvena_mreza">WhatsApp</label>
+                                          <input type="radio" name="drustvena_mreza" id="viber" value="Viber">
+                                          <label for="drustvena_mreza">Viber</label>
+                                        </div>
 
-    <label>Škola/Fakultet:</label>
-    <input type="text" name="skola" placeholder="Ekonomski fakultet" required>
 
-    <label>Mesto:</label>
-    <input type="text" name="mesto" placeholder="Kosovska Mitrovica" required>
 
-    <label>Predmet:</label>
-    <input type="text" name="predmet" required>
 
-    <label>Tema:</label>
-    <input type="text" name="tema" required>
 
-    <label>Smer:</label>
-    <input type="text" name="smer">
+                                        <!-- <div class="form-group">
+                                        <label for="loc">Gender:</label>
+                                        <select class="form-control" name="gender" id="gender" >
+                                          <option value="" disabled selected hidden>Choose...</option>
+                                          <option value="male">Male</option>
+                                          <option value="female">Female</option>
+                                        </select>
+                                      </div> -->
 
-    <label>Broj indeksa/odeljenje:</label>
-    <input type="text" name="indeks">
+                                                                    <!-- <div class="form-group form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" id="age" />
+                                        <label class="form-check-label" for="age"
+                                          >Check if you are over 18 years old</label
+                                        >
+                                      </div>
+                                      
+                                      <div class="form-group form-check">
+                                        <input class="form-check-input" type="checkbox" id="ex" />
+                                        <label class="form-check-label" for="ex"
+                                          >By checking this box I certify that I am agree with the data
+                                          terms and policies.
+                                        </label>
+                                      </div> -->
 
-    <label>Profesor:</label>
-    <input type="text" name="profesor">
-
-    <label>Broj stranica:</label>
-    <input type="text" name="brojStranica">
-
-    <label>Rok:</label>
-    <input type="date" name="rok">
-
-    <label>E-mail:</label>
-    <input type="email" name="email">
-
-    <label>Telefon:</label>
-    <input type="text" name="telefon">
-
-    <label>Društvena mreža:</label>
-    <select name="mreza">
-      <option value="WhatsApp">WhatsApp</option>
-      <option value="Viber">Viber</option>
-    </select>
-
-    <button type="submit">Pošalji porudžbinu</button>
-  </form>
-
-  <div id="status">Popunite formu i kliknite "Pošalji"</div>
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                          Submit
+                                        </button>
+      </form>
+    </div>
+  </div>
 
   <script>
-    const form = document.getElementById("radoviForm");
-    const statusDiv = document.getElementById("status");
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbyeOXac5puMU1u7xwf04qd9NdvFcSdpkYrtrVNbxhc8irH7BMvV2hlwXIYiVGQm5ezC/exec";
+    const form = document.forms["submit-to-google-sheet"];
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      var formData = new FormData(form);
 
-    // Prikaz poruke kada se forma pošalje
-    form.addEventListener("submit", function() {
-      statusDiv.innerHTML = "Šaljem podatke...";
-      statusDiv.style.color = "#3498db";
+
+
+      // // IZBOR VRSTE RADA RADIO BUTTON
+      //   var vrsta_rada = document.getElementsByName('vrsta_rada');
+      //   var vrsta_rada_selected;
+      //   for (let i = 0; i<vrsta_rada.length; i++){
+      //     if (vrsta_rada[i].type === 'radio' && vrsta_rada[i].checked){
+      //       vrsta_rada_selected = vrsta_rada[i].value;
+      //       // formData.append("vrsta_rada", vrsta_rada_selected);
+      //       console.log(vrsta_rada_selected);
+      //     }
+      //   }
+      // // IZBOR POLA RADIO BUTTON
+      //   var pol = document.getElementsByName('pol');
+      //   var pol_selected;
+      //   for (let i = 0; i < pol.length; i++) {
+      //     if(pol[i].type === 'radio' && pol[i].checked){
+      //       pol_selected = pol[i].value;
+      //       console.log(pol_selected);
+      //     }
+      //   }
+      // // IZBOR DRUSTVENE MREZE RADIO BUTTON
+      //   var drustvena_mreza = document.getElementsByName('drustvena_mreza');
+      //   var drustvena_mreza_selected;
+      //   for (let i = 0; i < drustvena_mreza.length; i++) {
+      //     if(drustvena_mreza[i].type === 'radio' && drustvena_mreza[i].checked){
+      //       drustvena_mreza_selected = drustvena_mreza[i].value;
+      //       console.log(drustvena_mreza_selected);
+      //     }
+      //   }
+
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+
+
+      // console.log(ex);
+      // var age = document.getElementById("age").checked;
+
+
+      // if (age) {
+      //   formData.append("age", "Yes");
+      // } else {
+      //   formData.append("age", "No");
+      // }
+      // if (ex) {
+      //   formData.append("ex", "Yes");
+      // } else {
+      //   formData.append("ex", "No");
+      // }
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      })
+      .then(() => {
+        alert("Uspešno poslato!");
+        form.reset();
+      })
+      .catch(() => {
+        alert("Greška pri slanju");
+      });
+
+        
+        
     });
 
-    // Praćenje kada iframe dobije odgovor
-    const iframe = document.getElementById("hidden_iframe");
-    
-    iframe.onload = function() {
-      statusDiv.innerHTML = "✅ Porudžbina je uspešno poslata! Kontaktiraćemo vas u najkraćem roku.";
-      statusDiv.style.color = "#27ae60";
-      form.reset();
-      
-      // Vrati poruku na početno stanje nakon 5 sekundi
-      setTimeout(function() {
-        statusDiv.innerHTML = "Popunite formu i kliknite 'Pošalji'";
-        statusDiv.style.color = "#2c3e50";
-      }, 5000);
-    };
   </script>
+
 </body>
+
 </html>
